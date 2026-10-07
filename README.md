@@ -80,7 +80,7 @@ python scripts/check_integrity.py
 ```
 
 ### Live Web Application
-- **Live Deployment URL**: `https://enhanced-indexing-portfolio.onrender.com` *(placeholder for Render web service)*
+- **Live Deployment URL**: [https://eipo-txjz.onrender.com/](https://eipo-txjz.onrender.com/)
 - **Local Run**:
   ```bash
   streamlit run app.py

@@ -24,7 +24,7 @@ def test_app_navigate_all_pages():
 
     pages = ["Explore", "Sweeps & Costs", "Statistical Significance", "About", "Overview"]
     for page_name in pages:
-        at.sidebar.radio(key="nav_page").set_value(page_name).run()
+        at.radio(key="nav_page").set_value(page_name).run()
         assert not at.exception, f"Exception when navigating to '{page_name}': {at.exception}"
 
 
@@ -32,7 +32,7 @@ def test_app_explore_parameter_selection():
     """Verify parameter selection on the Explore page works and displays metrics."""
     at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
     at.run()
-    at.sidebar.radio(key="nav_page").set_value("Explore").run()
+    at.radio(key="nav_page").set_value("Explore").run()
     assert not at.exception
 
     # Selectboxes on explore page

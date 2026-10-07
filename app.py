@@ -7,7 +7,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -17,7 +16,7 @@ st.set_page_config(
     page_title="Enhanced Indexing Optimizer",
     page_icon="📈",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
@@ -34,31 +33,39 @@ st.markdown(
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    /* Keyframes for rainbow glow cycle */
+    /* Completely hide sidebar and collapse button since navigation is at top */
+    [data-testid="stSidebar"] {
+        display: none !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] {
+        display: none !important;
+    }
+
+    /* Keyframes for rainbow glow cycle (GPU optimized) */
     @keyframes rainbowGlow {
         0% {
             border-color: #6366f1;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.40);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
         }
         20% {
             border-color: #06b6d4;
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.40);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
         }
         40% {
             border-color: #10b981;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.40);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
         }
         60% {
             border-color: #f59e0b;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.40);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
         }
         80% {
             border-color: #ec4899;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.40);
+            box-shadow: 0 0 12px rgba(236, 72, 153, 0.35);
         }
         100% {
             border-color: #6366f1;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.40);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
         }
     }
 
@@ -66,65 +73,125 @@ st.markdown(
     .glowing-card {
         background-color: #ffffff !important;
         border: 2px solid #6366f1;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin-bottom: 24px;
         animation: rainbowGlow 6s linear infinite;
+        will-change: border-color, box-shadow;
     }
 
     /* Metric cards styling */
     div[data-testid="stMetric"] {
         background-color: #ffffff !important;
         border: 2px solid #6366f1 !important;
-        border-radius: 12px !important;
-        padding: 14px 18px !important;
+        border-radius: 14px !important;
+        padding: 16px 20px !important;
         animation: rainbowGlow 6s linear infinite !important;
+        will-change: border-color, box-shadow;
+        transition: transform 0.2s ease;
+    }
+    div[data-testid="stMetric"]:hover {
+        transform: translateY(-2px);
     }
 
-    /* Dataframe and table containers */
+    /* Static crisp styling for Dataframe - NEVER animate to prevent canvas re-rasterization lag */
     div[data-testid="stDataFrame"] {
-        border: 2px solid #6366f1 !important;
+        border: 2px solid #e2e8f0 !important;
         border-radius: 12px !important;
-        padding: 4px !important;
         background-color: #ffffff !important;
-        animation: rainbowGlow 6s linear infinite !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        overflow: hidden !important;
     }
 
     /* Plots & image containers */
-    div[data-testid="stImage"], .stPlot {
+    div[data-testid="stImage"] {
         border: 2px solid #6366f1 !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         padding: 8px !important;
         background-color: #ffffff !important;
         animation: rainbowGlow 6s linear infinite !important;
+        will-change: border-color, box-shadow;
     }
 
-    /* Selectbox & controls container */
+    /* Top Horizontal Navigation Bar Styling */
+    div[data-testid="stRadio"] {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        background-color: #ffffff;
+        padding: 8px 16px;
+        border: 2px solid #6366f1;
+        border-radius: 50px;
+        animation: rainbowGlow 6s linear infinite;
+        will-change: border-color, box-shadow;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 30px;
+        padding: 8px 22px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #1e293b;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:hover {
+        background-color: #ede9fe;
+        border-color: #818cf8;
+        color: #4338ca;
+        transform: translateY(-1px);
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label:has(input:checked),
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label[data-checked="true"] {
+        background: #0f172a !important;
+        color: #ffffff !important;
+        border-color: #0f172a !important;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25) !important;
+    }
+    /* Hide radio circle inside pill */
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label input[type="radio"] {
+        display: none !important;
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child:not([data-testid="stMarkdownContainer"]) {
+        display: none !important;
+    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] > label div[data-testid="stMarkdownContainer"] {
+        padding-left: 0 !important;
+    }
+
+    /* Selectbox styling */
     div[data-baseweb="select"] {
-        border: 1.5px solid #6366f1 !important;
+        border: 1.5px solid #cbd5e1 !important;
         border-radius: 8px !important;
-        animation: rainbowGlow 6s linear infinite !important;
+        background-color: #ffffff !important;
+        transition: border-color 0.2s ease;
     }
-
-    /* Sidebar container styling */
-    section[data-testid="stSidebar"] {
-        background-color: #fafbfc !important;
-        border-right: 2px solid #6366f1 !important;
-        animation: rainbowGlow 6s linear infinite !important;
+    div[data-baseweb="select"]:hover, div[data-baseweb="select"]:focus-within {
+        border-color: #6366f1 !important;
     }
 
     /* Notification / Badge pill */
     .status-pill {
-        display: inline-block;
-        padding: 5px 14px;
-        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        font-size: 0.88rem;
         font-weight: 600;
         border-radius: 9999px;
         border: 1.5px solid #6366f1;
         animation: rainbowGlow 6s linear infinite;
+        will-change: border-color, box-shadow;
         background-color: #ffffff;
         color: #1e293b;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
     }
 
     /* Professional typography */
@@ -160,26 +227,40 @@ def load_metadata_artifact() -> dict[str, Any]:
         return json.load(f)
 
 
-# Navigation
-st.sidebar.markdown("## Navigation")
-page = st.sidebar.radio(
-    "Select View",
-    ["Overview", "Explore", "Sweeps & Costs", "Statistical Significance", "About"],
-    key="nav_page",
-)
-
-st.sidebar.markdown("---")
-st.sidebar.markdown(
-    "<div style='font-size: 0.8rem; color: #64748b;'>EIPO Production Deployment<br>Educational project, not investment advice.</div>",
+# ==============================================================================
+# Top Project Heading & Navigation Bar
+# ==============================================================================
+st.title("Enhanced Indexing Portfolio Optimization (EIPO)")
+st.markdown(
+    """
+    <div style='display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: -12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;'>
+        <span style='font-size: 1.02rem; color: #475569; font-weight: 500;'>
+            Constrained SOCP Active Risk Budgeting &bull; Nifty 50 Large-Cap Benchmark (2016–2026)
+        </span>
+        <span class='status-pill' style='margin-bottom: 0;'>
+            ⚡ Production Engine &bull; Zero Delay Artifacts
+        </span>
+    </div>
+    """,
     unsafe_allow_html=True,
 )
+
+# Top Horizontal Navigation Bar
+page = st.radio(
+    "Navigation",
+    ["Overview", "Explore", "Sweeps & Costs", "Statistical Significance", "About"],
+    key="nav_page",
+    horizontal=True,
+    label_visibility="collapsed",
+)
+st.markdown("<div style='margin-bottom: 18px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
 # Page 1: Overview
 # ==============================================================================
 if page == "Overview":
-    st.title("Enhanced Indexing Portfolio Optimization (EIPO)")
+    st.subheader("Performance Overview")
     st.markdown(
         "<div class='status-pill'>Production Benchmark & Enhanced Index Performance (2016–2026)</div>",
         unsafe_allow_html=True,
@@ -274,53 +355,42 @@ if page == "Overview":
 
     st.dataframe(formatted_df, width="stretch")
 
-    # Visualizations
+    # Visualizations: Precomputed high-resolution artifacts for 0ms lag
     st.markdown("### Cumulative Wealth Growth & Rolling Risk")
     c1, c2 = st.columns(2)
 
+    cum_img_path = RESULTS_DIR / "cumulative_returns.png"
+    rolling_img_path = RESULTS_DIR / "rolling_te.png"
+
     with c1:
-        if "date" in returns_df.columns:
-            returns_df["date"] = pd.to_datetime(returns_df["date"])
-            r_indexed = returns_df.set_index("date")
+        if cum_img_path.is_file():
+            st.image(str(cum_img_path), caption="Cumulative Wealth Index: Enhanced vs Benchmark (2016–2026)", use_container_width=True)
         else:
-            r_indexed = returns_df.copy()
-
-        fig1, ax1 = plt.subplots(figsize=(7, 4.2), facecolor="white")
-        for col in ["benchmark", "enhanced_lw", "enhanced_sample", "mv"]:
-            if col in r_indexed.columns:
-                wealth = (1.0 + r_indexed[col].dropna()).cumprod()
-                ax1.plot(wealth.index, wealth.values, label=col, linewidth=1.8)
-
-        ax1.set_title("Growth of ₹1.00 Invested (2016–2026)", fontsize=11, fontweight="bold", pad=10)
-        ax1.set_ylabel("Wealth Index", fontsize=10)
-        ax1.grid(True, linestyle="--", alpha=0.35)
-        ax1.legend(loc="upper left", framealpha=0.9, fontsize=9)
-        fig1.tight_layout()
-        st.pyplot(fig1)
-        plt.close(fig1)
+            st.info("Cumulative returns image not found.")
 
     with c2:
-        fig2, ax2 = plt.subplots(figsize=(7, 4.2), facecolor="white")
-        if "enhanced_lw" in r_indexed.columns and "benchmark" in r_indexed.columns:
-            active = r_indexed["enhanced_lw"] - r_indexed["benchmark"]
-            rolling_te = active.rolling(252).std(ddof=1) * np.sqrt(252)
-            ax2.plot(rolling_te.index, rolling_te.values, color="#4f46e5", label="252d Realized TE", linewidth=1.8)
-            ax2.axhline(0.03, color="#ef4444", linestyle="--", linewidth=1.5, label="Target Budget (3%)")
+        if rolling_img_path.is_file():
+            st.image(str(rolling_img_path), caption="Rolling 1-Year Realized Tracking Error (Target Budget: 3.0%)", use_container_width=True)
+        else:
+            st.info("Rolling tracking error image not found.")
 
-        ax2.set_title("Rolling 1-Year Realized Tracking Error", fontsize=11, fontweight="bold", pad=10)
-        ax2.set_ylabel("Annualized TE", fontsize=10)
-        ax2.grid(True, linestyle="--", alpha=0.35)
-        ax2.legend(loc="upper right", framealpha=0.9, fontsize=9)
-        fig2.tight_layout()
-        st.pyplot(fig2)
-        plt.close(fig2)
+    with st.expander("📊 Additional Risk Analytics: Drawdowns & Rebalance Turnover"):
+        e1, e2 = st.columns(2)
+        dd_img_path = RESULTS_DIR / "drawdown.png"
+        turnover_img_path = RESULTS_DIR / "turnover.png"
+        with e1:
+            if dd_img_path.is_file():
+                st.image(str(dd_img_path), caption="Historical Underwater Drawdown", use_container_width=True)
+        with e2:
+            if turnover_img_path.is_file():
+                st.image(str(turnover_img_path), caption="Turnover per Monthly Rebalance", use_container_width=True)
 
 
 # ==============================================================================
 # Page 2: Explore Parameter Grid
 # ==============================================================================
 elif page == "Explore":
-    st.title("Explore Parameter Sensitivity")
+    st.subheader("Explore Parameter Sensitivity")
     st.markdown(
         "<div class='status-pill'>Precomputed from the backtest; not a live run.</div>",
         unsafe_allow_html=True,
@@ -401,19 +471,13 @@ elif page == "Explore":
         chart_col, table_col = st.columns([1, 1])
 
         with chart_col:
-            fig, ax = plt.subplots(figsize=(6, 3.8), facecolor="white")
-            ax.plot(sub_grid["tc_bps"], sub_grid["excess_return"] * 100, marker="o", color="#4f46e5", label="Net Excess (%)", linewidth=2)
-            ax.plot(sub_grid["tc_bps"], sub_grid["gross_excess_return"] * 100, linestyle="--", marker="s", color="#10b981", label="Gross Excess (%)", linewidth=1.5)
-            ax.set_xlabel("Transaction Cost (bps)", fontsize=10)
-            ax.set_ylabel("Excess Return (%)", fontsize=10)
-            ax.set_title("Net vs Gross Return Degradation", fontsize=11, fontweight="bold")
-            ax.grid(True, linestyle="--", alpha=0.35)
-            ax.legend()
-            fig.tight_layout()
-            st.pyplot(fig)
-            plt.close(fig)
+            st.markdown("**Net vs Gross Return Degradation**")
+            chart_df = sub_grid.set_index("tc_bps")[["excess_return", "gross_excess_return"]].copy() * 100
+            chart_df.columns = ["Net Excess (%)", "Gross Excess (%)"]
+            st.line_chart(chart_df, height=300)
 
         with table_col:
+            st.markdown("**Sensitivity Grid (tc_bps)**")
             display_sub = sub_grid.copy()
             for col in ["ann_return", "excess_return", "gross_excess_return", "cost_drag", "realized_TE"]:
                 display_sub[col] = display_sub[col].apply(lambda x: f"{x * 100:.2f}%")
@@ -426,7 +490,7 @@ elif page == "Explore":
 # Page 3: Sweeps & Costs
 # ==============================================================================
 elif page == "Sweeps & Costs":
-    st.title("Tracking Error Sweeps & Execution Friction Analysis")
+    st.subheader("Tracking Error Sweeps & Execution Friction Analysis")
     st.markdown(
         "<div class='status-pill'>Ex-Ante Risk Budgets & Constraint Saturation</div>",
         unsafe_allow_html=True,
@@ -475,29 +539,23 @@ elif page == "Sweeps & Costs":
             width="stretch",
         )
 
-    # Plot Sweeps
-    fig_sw, (ax_sw1, ax_sw2) = plt.subplots(1, 2, figsize=(12, 4.2), facecolor="white")
+    # Plot Sweeps: Precomputed high-resolution artifacts for instant loading
+    st.markdown("### Information Ratio vs Tracking-Error Budget")
+    sw_img1 = RESULTS_DIR / "ir_vs_te.png"
+    sw_img2 = RESULTS_DIR / "ir_vs_te_loose.png"
+    sw_col1, sw_col2 = st.columns(2)
 
-    ax_sw1.plot(sweep_df["te_max"] * 100, sweep_df["realized_TE"] * 100, marker="o", color="#4f46e5", label="Standard Limits", linewidth=2)
-    ax_sw1.plot(sweep_loose_df["te_max"] * 100, sweep_loose_df["realized_TE"] * 100, marker="s", color="#06b6d4", label="Loose Limits", linewidth=2)
-    ax_sw1.plot([0.5, 6.0], [0.5, 6.0], linestyle=":", color="#94a3b8", label="1:1 Budget Line")
-    ax_sw1.set_xlabel("Ex-Ante TE Limit (%)", fontsize=10)
-    ax_sw1.set_ylabel("Realized TE (%)", fontsize=10)
-    ax_sw1.set_title("Realized vs Ex-Ante Tracking Error", fontsize=11, fontweight="bold")
-    ax_sw1.grid(True, linestyle="--", alpha=0.35)
-    ax_sw1.legend(fontsize=9)
+    with sw_col1:
+        if sw_img1.is_file():
+            st.image(str(sw_img1), caption="Standard Constraints: IR vs Tracking-Error Budget", use_container_width=True)
+        else:
+            st.info("Sweep chart (standard) not found.")
 
-    ax_sw2.plot(sweep_df["te_max"] * 100, sweep_df["IR"], marker="o", color="#4f46e5", label="Standard Limits", linewidth=2)
-    ax_sw2.plot(sweep_loose_df["te_max"] * 100, sweep_loose_df["IR"], marker="s", color="#06b6d4", label="Loose Limits", linewidth=2)
-    ax_sw2.set_xlabel("Ex-Ante TE Limit (%)", fontsize=10)
-    ax_sw2.set_ylabel("Information Ratio (IR)", fontsize=10)
-    ax_sw2.set_title("Information Ratio Across TE Budgets", fontsize=11, fontweight="bold")
-    ax_sw2.grid(True, linestyle="--", alpha=0.35)
-    ax_sw2.legend(fontsize=9)
-
-    fig_sw.tight_layout()
-    st.pyplot(fig_sw)
-    plt.close(fig_sw)
+    with sw_col2:
+        if sw_img2.is_file():
+            st.image(str(sw_img2), caption="Loose Constraints: IR vs Tracking-Error Budget", use_container_width=True)
+        else:
+            st.info("Sweep chart (loose) not found.")
 
     st.markdown("### 2. Transaction Cost Sensitivity (`cost_sensitivity.csv`)")
     st.dataframe(
@@ -518,7 +576,7 @@ elif page == "Sweeps & Costs":
 # Page 4: Statistical Significance
 # ==============================================================================
 elif page == "Statistical Significance":
-    st.title("Statistical Significance & Hypothesis Testing")
+    st.subheader("Statistical Significance & Hypothesis Testing")
     st.markdown(
         "<div class='status-pill'>Rigorous Significance Tests & Placebo Monte Carlo</div>",
         unsafe_allow_html=True,
@@ -593,7 +651,7 @@ elif page == "Statistical Significance":
 # Page 5: About & Metadata
 # ==============================================================================
 elif page == "About":
-    st.title("About Enhanced Indexing & System Metadata")
+    st.subheader("About Enhanced Indexing & System Metadata")
     st.markdown(
         "<div class='status-pill'>System Architecture & Methodology Disclosures</div>",
         unsafe_allow_html=True,
@@ -638,10 +696,12 @@ elif page == "About":
     except FileNotFoundError:
         st.info("run_metadata.json not found in results directory.")
 
-    st.markdown("---")
-    st.markdown(
-        "<div style='text-align: center; color: #64748b; font-weight: 600; padding: 12px;'>"
-        "Educational project, not investment advice."
-        "</div>",
-        unsafe_allow_html=True,
-    )
+
+# Footer
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: #64748b; font-size: 0.85rem; font-weight: 500; padding: 12px 0 24px 0;'>"
+    "Enhanced Indexing Portfolio Optimization (EIPO) &bull; Production Deployment on Render &bull; Educational project, not investment advice."
+    "</div>",
+    unsafe_allow_html=True,
+)
