@@ -1,1 +1,22 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Scratch & temporary test directories
+scratch/
+scratch_*/
+temp/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
 .agents/

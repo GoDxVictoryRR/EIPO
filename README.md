@@ -61,7 +61,7 @@ python scripts/run_all.py
 *Note: All production artifacts in `results/` are generated deterministically by `run_all.py`.*
 
 ### Running Tests
-The test suite consists of 42 offline unit/integration tests and 2 network validation tests:
+The test suite consists of 45 offline unit/integration tests (including headless Streamlit UI tests) and 2 network validation tests:
 ```bash
 # Run offline test suite (mocked & synthetic data, fast, does not pollute results/)
 pytest -q
@@ -79,11 +79,13 @@ python scripts/independent_check.py
 python scripts/check_integrity.py
 ```
 
-### Interactive Web App
-Launch the Streamlit dashboard:
-```bash
-streamlit run app.py
-```
+### Live Web Application
+- **Live Deployment URL**: `https://enhanced-indexing-portfolio.onrender.com` *(placeholder for Render web service)*
+- **Local Run**:
+  ```bash
+  streamlit run app.py
+  ```
+- **Render Production Specs**: Configured via `render.yaml` with Python 3.13.7 and `requirements-app.txt`. The web app reads exclusively from precomputed artifacts in `results/` with zero runtime optimization solvers (`cvxpy`) or network dependencies.
 
 ---
 

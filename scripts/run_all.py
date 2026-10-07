@@ -180,13 +180,16 @@ def main() -> None:
     # 6. Significance (full 100 seeds)
     run_script("run_significance.py")
 
-    # 7. Metadata
+    # 7. Precompute parameter grid for app
+    run_script("build_grid.py")
+
+    # 8. Metadata
     cfg = load_config("config.yaml")
     prices = load_prices(cfg)
     tickers = list(prices.columns)
     write_metadata(cfg, prices, tickers)
 
-    # 8. Report
+    # 9. Report
     generate_report()
     logger.info("run_all.py completed successfully.")
 

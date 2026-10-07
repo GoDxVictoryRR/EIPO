@@ -1,6 +1,6 @@
 # Results Summary
 
-Generated: 2026-10-07T19:07:35.810845+00:00
+Generated: 2026-10-07T19:48:14.197698+00:00
 Config hash: `e4dfa0d6`  Data end: `2026-09-29`  Tickers: 41
 
 ## Strategy Metrics
