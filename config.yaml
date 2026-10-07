@@ -1,0 +1,26 @@
+seed: 42
+data:
+  start: "2015-01-01"
+  end: "2026-09-30"
+  cache_dir: data
+  benchmark_index: "^NSEI"
+  max_missing_frac: 0.05
+estimation_window: 252        # trading days
+rebalance: monthly            # last trading day of month
+warmup_days: 252
+optimizer:
+  risk_aversion: 10.0         # lambda
+  te_max: 0.03                # annual ex-ante TE limit
+  max_active_weight: 0.03     # |w - w_b| per stock
+  sector_dev_max: 0.05        # |sector active weight|
+  solver: CLARABEL            # fallback SCS
+costs:
+  tc_bps: 10                  # per unit of traded notional
+signals:
+  ic: 0.05
+  weights: {momentum: 0.5, reversal: 0.25, lowvol: 0.25}
+  winsor_z: 3.0
+covariance: ledoit_wolf       # or sample
+risk_free_annual: 0.065
+sweep:
+  te_max: [0.005, 0.01, 0.02, 0.03, 0.04]

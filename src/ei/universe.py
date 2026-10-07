@@ -1,0 +1,50 @@
+"""Universe definition and retrieval."""
+
+TICKERS: list[str] = [
+    "RELIANCE.NS",
+    "TCS.NS",
+    "HDFCBANK.NS",
+    "INFY.NS",
+    "ICICIBANK.NS",
+    "HINDUNILVR.NS",
+    "ITC.NS",
+    "SBIN.NS",
+    "BHARTIARTL.NS",
+    "KOTAKBANK.NS",
+    "LT.NS",
+    "AXISBANK.NS",
+    "ASIANPAINT.NS",
+    "MARUTI.NS",
+    "SUNPHARMA.NS",
+    "TITAN.NS",
+    "ULTRACEMCO.NS",
+    "NESTLEIND.NS",
+    "WIPRO.NS",
+    "HCLTECH.NS",
+    "BAJFINANCE.NS",
+    "POWERGRID.NS",
+    "NTPC.NS",
+    "ONGC.NS",
+    "TATASTEEL.NS",
+    "M&M.NS",
+    "TECHM.NS",
+    "COALINDIA.NS",
+    "DRREDDY.NS",
+    "CIPLA.NS",
+    "BRITANNIA.NS",
+    "HEROMOTOCO.NS",
+    "EICHERMOT.NS",
+    "GRASIM.NS",
+    "HINDALCO.NS",
+    "JSWSTEEL.NS",
+    "BPCL.NS",
+    "DIVISLAB.NS",
+    "BAJAJFINSV.NS",
+    "INDUSINDBK.NS",
+    "ADANIPORTS.NS",
+]
+
+
+def get_universe() -> list[str]:
+    """Return the default universe of stock tickers."""
+    return list(TICKERS)
