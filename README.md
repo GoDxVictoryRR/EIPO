@@ -23,7 +23,8 @@ The system constructs a monthly-rebalanced, long-only enhanced index portfolio d
   $$\sqrt{(w - w_b)^T \Sigma (w - w_b)} \le \text{te\_max} \quad (\le 3\%)$$
 - **Backtesting Engine (`src/ei/backtest.py`)**: Realistic monthly rebalancing engine with exact daily price drift between rebalance dates and transaction cost accounting on rebalance transition days.
 - **Statistical Significance & Placebos (`scripts/run_significance.py`, `scripts/run_placebo.py`)**: Computes IR t-statistics, block bootstrap confidence intervals, noise alpha placebos (100 seeds), and label permutation placebos (100 seeds).
-- **Interactive Dashboard (`app.py`)**: Streamlit application allowing real-time exploration of tracking error budgets, sector constraints, and transaction cost sensitivities.
+- **Interactive Dashboard (`app.py`)**: High-performance Streamlit application featuring live backtest simulation, dynamic regime slicing, constituent holdings and sector active tilts across 129 monthly rebalances, "What IS vs NOT Happening" transparency callouts, tracking error budget sweeps, and dual placebo significance analyses.
+- **Academic Progress Report (`report/`)**: Formatted Word `.docx` and `.pdf` progress report generated reproducibly via `report/build_report.py`.
 
 ---
 

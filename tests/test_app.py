@@ -22,7 +22,15 @@ def test_app_navigate_all_pages():
     at.run()
     assert not at.exception, f"Initial run exception: {at.exception}"
 
-    pages = ["Explore", "Sweeps & Costs", "Statistical Significance", "About", "Overview"]
+    pages = [
+        "Explore",
+        "Sweeps & Costs",
+        "Statistical Significance",
+        "About",
+        "Overview",
+        "⚡ Live Simulation",
+        "💼 Holdings & Sectors",
+    ]
     for page_name in pages:
         at.radio(key="nav_page").set_value(page_name).run()
         assert not at.exception, f"Exception when navigating to '{page_name}': {at.exception}"
@@ -40,3 +48,27 @@ def test_app_explore_parameter_selection():
     # Check that the precomputed note is present
     pills = [m.value for m in at.markdown if "precomputed" in m.value.lower()]
     assert len(pills) >= 1
+
+
+def test_app_live_simulation_execution():
+    """Verify live backtest simulation execution runs and produces metrics without exception."""
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
+    at.run()
+    at.radio(key="nav_page").set_value("⚡ Live Simulation").run()
+    assert not at.exception
+
+    # Check button execution
+    assert len(at.button) >= 1
+    at.button[0].click().run()
+    assert not at.exception
+    assert len(at.metric) >= 5
+
+
+def test_app_holdings_and_sectors():
+    """Verify holdings and sectors page renders tables and sliders properly."""
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
+    at.run()
+    at.radio(key="nav_page").set_value("💼 Holdings & Sectors").run()
+    assert not at.exception
+    assert len(at.select_slider) >= 1
+    assert len(at.dataframe) >= 2

@@ -1,0 +1,19 @@
+# Student and Project Details for Project Progress Report
+# Fill in these placeholder values before final submission.
+
+project_title: "Enhanced Indexing Based Portfolio Optimization"
+app_url: "https://eipo-txjz.onrender.com/"
+
+students:
+  - name: "[Student Name 1]"
+    enrollment: "[Enrollment Number 1]"
+  - name: "[Student Name 2]"
+    enrollment: "[Enrollment Number 2]"
+
+guide_name: "[Guide Name]"
+guide_designation: "[Guide Designation / Assistant Professor]"
+department: "[Department of Computer Engineering / Information Technology]"
+college: "[College / Institute Name]"
+university: "[University Name]"
+academic_year: "2025-2026"
+submission_date: "October 2026"

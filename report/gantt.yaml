@@ -1,0 +1,54 @@
+# Project Schedule and Work Breakdown for Gantt Chart
+# All schedules are defined in terms of project week numbers (1 to 22).
+
+tasks:
+  - id: 1
+    name: "Literature study"
+    start_week: 1
+    duration: 3
+    status: "Completed"
+  - id: 2
+    name: "Data collection and cleaning"
+    start_week: 3
+    duration: 3
+    status: "Completed"
+  - id: 3
+    name: "Benchmark and signals"
+    start_week: 5
+    duration: 3
+    status: "Completed"
+  - id: 4
+    name: "Risk model and optimiser"
+    start_week: 7
+    duration: 3
+    status: "Completed"
+  - id: 5
+    name: "Backtest engine"
+    start_week: 9
+    duration: 4
+    status: "Completed"
+  - id: 6
+    name: "Testing and verification"
+    start_week: 12
+    duration: 3
+    status: "Completed"
+  - id: 7
+    name: "Significance analysis"
+    start_week: 14
+    duration: 2
+    status: "Completed"
+  - id: 8
+    name: "Web app and deployment"
+    start_week: 15
+    duration: 3
+    status: "Completed"
+  - id: 9
+    name: "Report writing"
+    start_week: 17
+    duration: 3
+    status: "In Progress"
+  - id: 10
+    name: "Final presentation"
+    start_week: 20
+    duration: 2
+    status: "Pending"
