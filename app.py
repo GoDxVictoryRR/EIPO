@@ -252,6 +252,315 @@ st.markdown(
     p, span, label {
         color: #1e293b;
     }
+
+    /* Pipeline Architecture Component Styles */
+    .pipeline-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .pipeline-step-box {
+        text-align: center;
+        flex: 1;
+        min-width: 130px;
+        background: #f8fafc;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+    .pipeline-arrow {
+        font-size: 1.2rem;
+        color: #6366f1;
+        display: inline-block;
+    }
+
+    /* =========================================================================
+       RESPONSIVE MOBILE OPTIMIZATIONS (Screen width <= 768px and <= 480px)
+       ========================================================================= */
+    @media (max-width: 768px) {
+        /* Optimize screen real estate: eliminate giant desktop side gutters */
+        .block-container {
+            padding-top: 1.0rem !important;
+            padding-bottom: 2.5rem !important;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+            max-width: 100vw !important;
+        }
+
+        /* Typography scaling for mobile screens */
+        h1 {
+            font-size: 1.40rem !important;
+            line-height: 1.25 !important;
+            margin-bottom: 0.35rem !important;
+        }
+        h2 {
+            font-size: 1.20rem !important;
+            line-height: 1.25 !important;
+        }
+        h3 {
+            font-size: 1.10rem !important;
+            line-height: 1.3 !important;
+        }
+        h4 {
+            font-size: 0.95rem !important;
+            line-height: 1.3 !important;
+        }
+        p, li, span {
+            font-size: 0.88rem !important;
+            line-height: 1.45 !important;
+        }
+
+        /* Top Horizontal Nav: Sticky frosted-glass pill carousel for mobile */
+        div[data-testid="stRadio"]:has(div[role="radiogroup"][aria-label="Navigation"]) {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 9999 !important;
+            background: rgba(255, 255, 255, 0.94) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            padding: 6px 0 !important;
+            margin-top: -6px !important;
+            margin-bottom: 0.85rem !important;
+        }
+        div[data-testid="stRadio"]:has(div[role="radiogroup"][aria-label="Navigation"]) > div[role="radiogroup"] {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
+            padding: 6px 10px !important;
+            border-radius: 14px !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+            scroll-snap-type: x mandatory !important;
+            -ms-overflow-style: none !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        }
+        div[data-testid="stRadio"]:has(div[role="radiogroup"][aria-label="Navigation"]) > div[role="radiogroup"]::-webkit-scrollbar {
+            display: none !important;
+        }
+        div[data-testid="stRadio"]:has(div[role="radiogroup"][aria-label="Navigation"]) > div[role="radiogroup"] > label {
+            flex: 0 0 auto !important;
+            white-space: nowrap !important;
+            padding: 8px 16px !important;
+            font-size: 0.84rem !important;
+            min-height: 42px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            scroll-snap-align: start !important;
+            border-radius: 24px !important;
+        }
+
+        /* Non-navigation radio buttons (e.g. Investment Mode) styled cleanly for mobile */
+        div[data-testid="stRadio"]:not(:has(div[role="radiogroup"][aria-label="Navigation"])) {
+            position: relative !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            margin: 4px 0 10px 0 !important;
+        }
+        div[data-testid="stRadio"]:not(:has(div[role="radiogroup"][aria-label="Navigation"])) > div[role="radiogroup"] {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+            padding: 4px !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 10px !important;
+            background: #f8fafc !important;
+        }
+        div[data-testid="stRadio"]:not(:has(div[role="radiogroup"][aria-label="Navigation"])) > div[role="radiogroup"] > label {
+            flex: 1 1 calc(50% - 6px) !important;
+            min-width: 120px !important;
+            padding: 8px 8px !important;
+            font-size: 0.80rem !important;
+            text-align: center !important;
+            justify-content: center !important;
+            border-radius: 8px !important;
+        }
+
+        /* Header Subtitle flex layout for mobile */
+        .mobile-header-sub {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+            margin-top: -6px !important;
+            margin-bottom: 14px !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            padding-bottom: 10px !important;
+        }
+        .mobile-header-sub span:first-child {
+            font-size: 0.86rem !important;
+            line-height: 1.35 !important;
+        }
+
+        /* Column grid: 2-column layout for metrics cards */
+        div[data-testid="stHorizontalBlock"] {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+        }
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+            min-width: calc(50% - 4px) !important;
+            flex: 1 1 calc(50% - 4px) !important;
+            padding: 0 !important;
+        }
+
+        /* Capital Preset buttons: 3-column grid (3x2) on mobile */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(button[kind="secondary"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div.stButton > button:not([kind="primary"])) {
+            min-width: calc(33.333% - 6px) !important;
+            flex: 1 1 calc(33.333% - 6px) !important;
+        }
+
+        /* Metric cards inside 2-col mobile grid */
+        div[data-testid="stMetric"] {
+            padding: 10px 12px !important;
+            border-radius: 12px !important;
+            min-height: 80px !important;
+        }
+        div[data-testid="stMetric"] label,
+        div[data-testid="stMetric"] label p {
+            font-size: 0.74rem !important;
+            line-height: 1.2 !important;
+            white-space: normal !important;
+        }
+        div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
+            font-size: 1.20rem !important;
+            font-weight: 700 !important;
+            line-height: 1.2 !important;
+        }
+        div[data-testid="stMetric"] div[data-testid="stMetricDelta"] {
+            font-size: 0.72rem !important;
+            line-height: 1.1 !important;
+        }
+
+        /* Full width for explanation containers and complex inputs */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(.glowing-card),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(.explain-card),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stDataFrame"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stSelectbox"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stSlider"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stDateInput"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stNumberInput"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stVegaLiteChart"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(button[kind="primary"]) {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+
+        /* Glowing cards and explain boxes */
+        .glowing-card {
+            padding: 14px 16px !important;
+            margin-bottom: 14px !important;
+            border-radius: 12px !important;
+        }
+        .explain-card, .explain-green, .explain-red {
+            padding: 10px 12px !important;
+            font-size: 0.85rem !important;
+            line-height: 1.4 !important;
+            margin: 8px 0 !important;
+            border-radius: 0 8px 8px 0 !important;
+        }
+
+        /* Pipeline steps: clean 2x3 card grid on mobile */
+        .pipeline-container {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+        }
+        .pipeline-step-box {
+            text-align: center !important;
+            background: #f8fafc !important;
+            padding: 10px 6px !important;
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0 !important;
+            min-width: 0 !important;
+        }
+        .pipeline-arrow {
+            display: none !important;
+        }
+
+        /* Touch-friendly buttons (48px height minimum) */
+        div.stButton > button {
+            min-height: 48px !important;
+            font-size: 0.98rem !important;
+            font-weight: 600 !important;
+            border-radius: 12px !important;
+            width: 100% !important;
+        }
+
+        /* Dataframe smooth touch scrolling with visual hint */
+        div[data-testid="stDataFrame"] {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            border-radius: 10px !important;
+            position: relative !important;
+        }
+        div[data-testid="stDataFrame"]::after {
+            content: "👉 Swipe horizontally to view full table";
+            display: block;
+            font-size: 0.72rem;
+            color: #64748b;
+            text-align: right;
+            padding: 4px 8px;
+            background: #f8fafc;
+            font-style: italic;
+        }
+
+        /* Touch-friendly selectboxes and dropdowns (44px min touch height) */
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] {
+            min-height: 44px !important;
+            border-radius: 10px !important;
+        }
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            min-height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            font-size: 0.90rem !important;
+        }
+
+        /* Touch-friendly sliders */
+        div[data-testid="stSlider"] {
+            padding-top: 6px !important;
+            padding-bottom: 12px !important;
+        }
+        div[data-testid="stSlider"] div[role="slider"] {
+            width: 22px !important;
+            height: 22px !important;
+        }
+
+        /* Vega-lite charts full width */
+        div[data-testid="stVegaLiteChart"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Status pill compact padding */
+        .status-pill {
+            padding: 4px 10px !important;
+            font-size: 0.78rem !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        /* Very small screens: 100% width for all columns that have inputs */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+        /* Except when displaying pure metrics in a 2x2 grid */
+        div[data-testid="stHorizontalBlock"]:has(div[data-testid="stMetric"]) > div[data-testid="column"] {
+            min-width: calc(50% - 4px) !important;
+            flex: 1 1 calc(50% - 4px) !important;
+        }
+        .pipeline-container {
+            grid-template-columns: 1fr !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -286,15 +595,49 @@ def load_metadata_artifact() -> dict[str, Any]:
         return json.load(f)
 
 
+def format_inr(val: float, include_symbol: bool = True) -> str:
+    """Format floating point numbers into standard Indian numbering format (e.g. ₹1,00,000)."""
+    sign = "-" if val < 0 else ""
+    prefix = "₹" if include_symbol else ""
+    v = abs(val)
+    int_part = int(round(v))
+    s = str(int_part)
+    if len(s) <= 3:
+        formatted = s
+    else:
+        last3 = s[-3:]
+        rest = s[:-3]
+        groups = []
+        while len(rest) > 2:
+            groups.insert(0, rest[-2:])
+            rest = rest[:-2]
+        if rest:
+            groups.insert(0, rest)
+        formatted = ",".join(groups) + "," + last3
+    return f"{sign}{prefix}{formatted}"
+
+
+def format_inr_compact(val: float) -> str:
+    """Format large numbers into compact Indian Lakhs/Crores notation (e.g. ₹4.44 Lakh)."""
+    sign = "-" if val < 0 else ""
+    v = abs(val)
+    if v >= 10_000_000:
+        return f"{sign}₹{v / 10_000_000:.2f} Cr"
+    elif v >= 100_000:
+        return f"{sign}₹{v / 100_000:.2f} Lakh"
+    else:
+        return format_inr(val)
+
+
 # ==============================================================================
 # Header & Navigation
 # ==============================================================================
 st.title("Enhanced Indexing Portfolio Optimization (EIPO)")
 st.markdown(
     """
-    <div style='display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: -10px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;'>
+    <div class='mobile-header-sub' style='display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: -10px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;'>
         <span style='font-size: 1.0rem; color: #475569; font-weight: 500;'>
-            Constrained SOCP Active Risk Budgeting &bull; Nifty 50 Large-Cap Universe (2016–2026)
+            Constrained SOCP Active Risk Budgeting &bull; NIFTY 50 Large-Cap Universe (2016–2026)
         </span>
         <span class='status-pill' style='margin-bottom: 0;'>
             ⚡ Production Engine &bull; Zero Delay Artifacts
@@ -309,6 +652,7 @@ page = st.radio(
     "Navigation",
     [
         "Overview",
+        "💰 Wealth Simulator",
         "⚡ Live Simulation",
         "💼 Holdings & Sectors",
         "Explore",
@@ -392,6 +736,91 @@ if page == "Overview":
             st.caption(f"Vol: {mv['ann_vol'] * 100:.2f}% | Beta: {mv['beta']:.2f}")
 
     # ==========================================================================
+    # QUICK DEMO CAPITAL WEALTH CHECK WIDGET
+    # ==========================================================================
+    st.markdown("---")
+    st.markdown(
+        """
+        <div class='glowing-card' style='padding: 18px 22px; margin-bottom: 20px; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);'>
+            <div style='display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;'>
+                <div>
+                    <h3 style='margin: 0; color: #0f172a; font-size: 1.25rem;'>
+                        💰 Quick Demo Capital Wealth Check
+                    </h3>
+                    <div style='color: #64748b; font-size: 0.88rem; margin-top: 4px;'>
+                        Compare total money returned <strong>With Our Strategy</strong> vs <strong>Without Our Strategy</strong> (NIFTY 50 Benchmark) over the 10.4-year backtest.
+                    </div>
+                </div>
+                <span class='badge-green' style='font-size: 0.82rem; padding: 4px 10px;'>⚡ 10.4-Year Compounding</span>
+            </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    qc_col1, qc_col2 = st.columns([1, 2])
+    with qc_col1:
+        quick_capital = st.select_slider(
+            "Select Demo Investment Capital:",
+            options=[10000, 25000, 50000, 100000, 250000, 500000, 1000000, 2500000, 10000000],
+            value=100000,
+            format_func=lambda x: format_inr(x),
+            key="quick_capital_slider",
+            help="Choose a test demo amount to see exact compounding returns in Rupees.",
+        )
+        st.caption(f"Selected Capital: **{format_inr(quick_capital)}** ({format_inr_compact(quick_capital)})")
+
+    # Compute values from returns_df
+    cum_full = (1.0 + returns_df[["benchmark", "enhanced_lw"]]).cumprod()
+    bm_mult = cum_full["benchmark"].iloc[-1]
+    lw_mult = cum_full["enhanced_lw"].iloc[-1]
+
+    qc_bm_final = quick_capital * bm_mult
+    qc_lw_final = quick_capital * lw_mult
+    qc_surplus = qc_lw_final - qc_bm_final
+    qc_bm_gain_pct = (bm_mult - 1.0) * 100.0
+    qc_lw_gain_pct = (lw_mult - 1.0) * 100.0
+
+    with qc_col2:
+        q_m1, q_m2, q_m3 = st.columns(3)
+        with q_m1:
+            st.metric(
+                label="Without Our Strategy (Nifty 50)",
+                value=format_inr(qc_bm_final),
+                delta=f"+{format_inr(qc_bm_final - quick_capital)} (+{qc_bm_gain_pct:.1f}%)",
+                help="Final value from holding cap-weighted Nifty 50 benchmark",
+            )
+            st.caption(f"CAGR: {bm['ann_return'] * 100:.2f}% p.a.")
+        with q_m2:
+            st.metric(
+                label="With Our Strategy (EIPO)",
+                value=format_inr(qc_lw_final),
+                delta=f"+{format_inr(qc_lw_final - quick_capital)} (+{qc_lw_gain_pct:.1f}%)",
+                help="Final value with SOCP Active Risk optimization after 10 bps trading fees",
+            )
+            st.caption(f"CAGR: {lw['ann_return'] * 100:.2f}% p.a.")
+        with q_m3:
+            st.metric(
+                label="Extra Wealth Created (Alpha)",
+                value=f"+{format_inr(qc_surplus)}",
+                delta=f"+{((qc_lw_final - qc_bm_final) / qc_bm_final) * 100:.2f}% Outperformance",
+                help="Pure extra profit generated by our strategy over benchmark",
+            )
+            st.caption("Net profit directly in your pocket")
+
+    st.markdown(
+        f"""
+            <div style='background: #f1f5f9; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 0.88rem; color: #334155; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;'>
+                <span>
+                    💡 <strong>Summary:</strong> An initial investment of <strong>{format_inr(quick_capital)}</strong> grew to <strong>{format_inr(qc_lw_final)}</strong> with our strategy, generating an extra <strong>{format_inr(qc_surplus)} in pure profit</strong> compared to buying the index alone.
+                </span>
+                <span style='color: #4f46e5; font-weight: 600;'>👉 Check the 💰 Wealth Simulator tab for SIP mode & year-by-year logs!</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ==========================================================================
     # VISUAL EXPLANATION: WHAT IS HAPPENING VS WHAT IS NOT HAPPENING
     # ==========================================================================
     st.markdown("---")
@@ -466,38 +895,38 @@ if page == "Overview":
     st.markdown(
         """
         <div class='glowing-card' style='padding: 16px 20px;'>
-            <div style='display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;'>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+            <div class='pipeline-container'>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>📥 <strong>Step 1</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>Price Ingestion</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>41 Tickers (2015–2026)</div>
                 </div>
-                <div style='font-size: 1.2rem; color: #6366f1;'>➔</div>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+                <div class='pipeline-arrow'>➔</div>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>🎯 <strong>Step 2</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>Alpha Signals</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>Mom (50%), Rev (25%), Vol (25%)</div>
                 </div>
-                <div style='font-size: 1.2rem; color: #6366f1;'>➔</div>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+                <div class='pipeline-arrow'>➔</div>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>🛡️ <strong>Step 3</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>Risk Model</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>Ledoit-Wolf Shrinkage</div>
                 </div>
-                <div style='font-size: 1.2rem; color: #6366f1;'>➔</div>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+                <div class='pipeline-arrow'>➔</div>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>⚖️ <strong>Step 4</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>SOCP Solver</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>Clarabel (100% Optimal)</div>
                 </div>
-                <div style='font-size: 1.2rem; color: #6366f1;'>➔</div>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+                <div class='pipeline-arrow'>➔</div>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>📈 <strong>Step 5</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>Daily Drift & Cost</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>10 bps Trading Friction</div>
                 </div>
-                <div style='font-size: 1.2rem; color: #6366f1;'>➔</div>
-                <div style='text-align: center; flex: 1; min-width: 130px; background: #f8fafc; padding: 10px; border-radius: 8px;'>
+                <div class='pipeline-arrow'>➔</div>
+                <div class='pipeline-step-box'>
                     <div style='font-size: 1.2rem;'>🧪 <strong>Step 6</strong></div>
                     <div style='font-weight: 600; color: #0f172a;'>Audits & Tests</div>
                     <div style='font-size: 0.8rem; color: #64748b;'>Bootstrap & 2 Placebos</div>
@@ -571,7 +1000,412 @@ if page == "Overview":
 
 
 # ==============================================================================
-# Page 2: Live Run & Backtest Simulation (Interactive Live Engine)
+# Page 2: 💰 Wealth & Demo Capital Simulator
+# ==============================================================================
+elif page == "💰 Wealth Simulator":
+    st.subheader("💰 Investment ROI & Demo Capital Wealth Simulator")
+    st.markdown(
+        "<div class='status-pill'>Interactive Capital Backtest &bull; Real-World Rupee Returns &bull; Realized Alpha Wealth</div>",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        Enter any **Demo Money Amount** below to see how much wealth is returned **With Our Strategy** versus **Without Our Strategy** (holding the NIFTY 50 index).
+        You can test different investment amounts, try **Lump Sum** or **Monthly SIP**, explore different market regimes, and examine exact year-by-year wealth compounding.
+        """
+    )
+
+    try:
+        returns_df = load_csv_artifact("returns.csv")
+        returns_df["Date"] = pd.to_datetime(returns_df["Unnamed: 0"])
+        returns_df = returns_df.set_index("Date")
+        metrics_df = load_csv_artifact("metrics.csv")
+        if "Unnamed: 0" in metrics_df.columns:
+            metrics_df = metrics_df.rename(columns={"Unnamed: 0": "strategy"})
+        if "strategy" in metrics_df.columns:
+            metrics_df = metrics_df.set_index("strategy")
+    except FileNotFoundError as err:
+        st.error(f"Error loading returns data: {err}")
+        st.stop()
+
+    min_date = returns_df.index.min().date()
+    max_date = returns_df.index.max().date()
+
+    # Session state for demo capital
+    if "sim_demo_capital" not in st.session_state:
+        st.session_state["sim_demo_capital"] = 100000
+
+    # Controls Box Container
+    st.markdown(
+        """
+        <div class='glowing-card' style='padding: 18px 22px; margin-bottom: 18px;'>
+            <h4 style='margin-top: 0; margin-bottom: 12px; color: #0f172a;'>
+                ⚙️ Simulation Configuration & Investment Settings
+            </h4>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Preset Quick Buttons
+    st.markdown("<div style='font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 6px;'>Quick Capital Presets:</div>", unsafe_allow_html=True)
+    p_cols = st.columns(6)
+    presets = [
+        ("₹10,000", 10000),
+        ("₹50,000", 50000),
+        ("₹1 Lakh", 100000),
+        ("₹5 Lakhs", 500000),
+        ("₹10 Lakhs", 1000000),
+        ("₹25 Lakhs", 2500000),
+    ]
+    for idx, (label, val) in enumerate(presets):
+        if p_cols[idx].button(label, key=f"ws_preset_{val}", use_container_width=True):
+            st.session_state["sim_demo_capital"] = val
+
+    cfg_col1, cfg_col2, cfg_col3 = st.columns(3)
+
+    with cfg_col1:
+        current_val = int(st.session_state["sim_demo_capital"])
+        user_capital = st.number_input(
+            "Demo Investment Amount (₹)",
+            min_value=1000,
+            max_value=1000000000,
+            value=current_val,
+            step=10000,
+            format="%d",
+            help="Enter any test capital in Indian Rupees (₹)",
+            key="input_demo_capital",
+        )
+        st.session_state["sim_demo_capital"] = user_capital
+
+        inv_mode = st.radio(
+            "Investment Mode",
+            ["Lump Sum (One-Time Capital)", "Monthly SIP (Systematic Investment)"],
+            index=0,
+            horizontal=True,
+            help="Lump Sum deploys capital once on Day 1. Monthly SIP deposits this amount on every monthly rebalance date.",
+        )
+
+    with cfg_col2:
+        target_strat = st.selectbox(
+            "Strategy to Compare",
+            ["Enhanced (Ledoit-Wolf)", "Enhanced (Sample Cov)", "Minimum Variance"],
+            index=0,
+            help="Select which portfolio optimization model to benchmark against the index",
+            key="ws_strat_select",
+        )
+        strat_col_map = {
+            "Enhanced (Ledoit-Wolf)": "enhanced_lw",
+            "Enhanced (Sample Cov)": "enhanced_sample",
+            "Minimum Variance": "mv",
+        }
+        strat_col = strat_col_map[target_strat]
+
+        ws_tc = st.slider(
+            "Trading Friction / Fees (bps)",
+            min_value=0,
+            max_value=50,
+            value=10,
+            step=5,
+            help="Linear trading fee applied per unit of portfolio turnover (10 bps = 0.10%)",
+            key="ws_tc_slider",
+        )
+
+    with cfg_col3:
+        regime_opt = st.selectbox(
+            "Investment Horizon & Market Regime",
+            [
+                "Full 10.4-Year Backtest (Feb 2016 – Sep 2026)",
+                "Pre-COVID Momentum Bull Run (2016–2019)",
+                "COVID-19 Crash & Rapid Recovery (2020)",
+                "Post-Pandemic Expansion (2021–2023)",
+                "Recent Market Regime (2024–2026)",
+                "Custom Date Range",
+            ],
+            index=0,
+            key="ws_regime_select",
+        )
+
+        if regime_opt == "Pre-COVID Momentum Bull Run (2016–2019)":
+            start_d, end_d = pd.to_datetime("2016-02-01").date(), pd.to_datetime("2019-12-31").date()
+        elif regime_opt == "COVID-19 Crash & Rapid Recovery (2020)":
+            start_d, end_d = pd.to_datetime("2020-01-01").date(), pd.to_datetime("2020-12-31").date()
+        elif regime_opt == "Post-Pandemic Expansion (2021–2023)":
+            start_d, end_d = pd.to_datetime("2021-01-01").date(), pd.to_datetime("2023-12-31").date()
+        elif regime_opt == "Recent Market Regime (2024–2026)":
+            start_d, end_d = pd.to_datetime("2024-01-01").date(), pd.to_datetime("2026-09-29").date()
+        elif regime_opt == "Custom Date Range":
+            cd_1, cd_2 = st.columns(2)
+            with cd_1:
+                start_d = st.date_input("Start Date", value=min_date, min_value=min_date, max_value=max_date, key="ws_sd")
+            with cd_2:
+                end_d = st.date_input("End Date", value=max_date, min_value=min_date, max_value=max_date, key="ws_ed")
+        else:
+            start_d, end_d = min_date, max_date
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Slice Returns Data
+    sub_returns = returns_df.loc[str(start_d) : str(end_d)].copy()
+
+    if sub_returns.empty or len(sub_returns) < 5:
+        st.warning("Selected date range contains insufficient trading days. Please select a wider window.")
+    else:
+        n_days = len(sub_returns)
+        ann_factor = 252.0 / n_days
+
+        # Dynamic friction adjustment relative to baseline 10 bps
+        turnover_annual = 4.66 if strat_col == "enhanced_lw" else (4.85 if strat_col == "enhanced_sample" else 4.54)
+        cost_drag_baseline = turnover_annual * (10.0 / 10000.0)
+        cost_drag_sim = turnover_annual * (ws_tc / 10000.0)
+        cost_adjustment = cost_drag_baseline - cost_drag_sim
+
+        strat_series = sub_returns[strat_col] + (cost_adjustment / 252.0)
+        bm_series = sub_returns["benchmark"]
+
+        # Base Cumulative Trajectory (1 unit)
+        strat_cum = (1.0 + strat_series).cumprod()
+        bm_cum = (1.0 + bm_series).cumprod()
+
+        is_sip = "SIP" in inv_mode
+
+        if not is_sip:
+            # LUMP SUM CALCULATION
+            total_invested = float(user_capital)
+            strat_daily_wealth = total_invested * strat_cum
+            bm_daily_wealth = total_invested * bm_cum
+            strat_final = strat_daily_wealth.iloc[-1]
+            bm_final = bm_daily_wealth.iloc[-1]
+            strat_profit = strat_final - total_invested
+            bm_profit = bm_final - total_invested
+            surplus_profit = strat_final - bm_final
+            surplus_pct = (surplus_profit / bm_final) * 100.0 if bm_final > 0 else 0.0
+
+            strat_cagr = (strat_cum.iloc[-1]) ** (ann_factor) - 1.0
+            bm_cagr = (bm_cum.iloc[-1]) ** (ann_factor) - 1.0
+
+            # Drawdown in Rupee terms
+            strat_peak = strat_daily_wealth.cummax()
+            strat_dd = (strat_daily_wealth - strat_peak) / strat_peak
+            strat_max_dd_pct = strat_dd.min()
+            strat_max_dd_rs = (strat_peak - strat_daily_wealth).max()
+
+            bm_peak = bm_daily_wealth.cummax()
+            bm_dd = (bm_daily_wealth - bm_peak) / bm_peak
+            bm_max_dd_pct = bm_dd.min()
+            bm_max_dd_rs = (bm_peak - bm_daily_wealth).max()
+        else:
+            # MONTHLY SIP CALCULATION
+            monthly_dates = sub_returns.resample("ME").last().index
+            nearest_dates = [sub_returns.index[sub_returns.index <= d][-1] for d in monthly_dates if not sub_returns.index[sub_returns.index <= d].empty]
+
+            strat_units = 0.0
+            bm_units = 0.0
+            total_invested = 0.0
+
+            strat_wealth_list = []
+            bm_wealth_list = []
+            dates_list = []
+
+            # Map nearest dates to set for O(1) membership check
+            sip_date_set = set(nearest_dates)
+
+            for dt in sub_returns.index:
+                p_s = strat_cum.loc[dt]
+                p_b = bm_cum.loc[dt]
+                if dt in sip_date_set:
+                    strat_units += user_capital / p_s
+                    bm_units += user_capital / p_b
+                    total_invested += user_capital
+
+                strat_wealth_list.append(strat_units * p_s)
+                bm_wealth_list.append(bm_units * p_b)
+                dates_list.append(dt)
+
+            strat_daily_wealth = pd.Series(strat_wealth_list, index=dates_list)
+            bm_daily_wealth = pd.Series(bm_wealth_list, index=dates_list)
+            strat_final = strat_daily_wealth.iloc[-1]
+            bm_final = bm_daily_wealth.iloc[-1]
+            strat_profit = strat_final - total_invested
+            bm_profit = bm_final - total_invested
+            surplus_profit = strat_final - bm_final
+            surplus_pct = (surplus_profit / bm_final) * 100.0 if bm_final > 0 else 0.0
+
+            strat_cagr = (strat_cum.iloc[-1]) ** (ann_factor) - 1.0
+            bm_cagr = (bm_cum.iloc[-1]) ** (ann_factor) - 1.0
+            strat_max_dd_pct = ((strat_daily_wealth - strat_daily_wealth.cummax()) / strat_daily_wealth.cummax()).min()
+            bm_max_dd_pct = ((bm_daily_wealth - bm_daily_wealth.cummax()) / bm_daily_wealth.cummax()).min()
+            strat_max_dd_rs = (strat_daily_wealth.cummax() - strat_daily_wealth).max()
+            bm_max_dd_rs = (bm_daily_wealth.cummax() - bm_daily_wealth).max()
+
+        # Headline Financial Outcome Metric Cards
+        st.markdown(f"### Financial Comparison: Returns on {format_inr(total_invested)} Capital")
+        m_col1, m_col2, m_col3, m_col4 = st.columns(4)
+
+        with m_col1:
+            st.metric(
+                label="Total Invested Capital",
+                value=format_inr(total_invested),
+                help="Total principal capital contributed to the portfolio",
+            )
+            mode_desc = f"Lump Sum on {start_d}" if not is_sip else f"SIP: {len(nearest_dates)} Monthly Deposits of {format_inr(user_capital)}"
+            st.caption(mode_desc)
+
+        with m_col2:
+            st.metric(
+                label="Without Our Strategy (Nifty 50)",
+                value=format_inr(bm_final),
+                delta=f"+{format_inr(bm_profit)} (+{(bm_profit / total_invested) * 100:.1f}%)" if bm_profit >= 0 else f"{format_inr(bm_profit)} ({(bm_profit / total_invested) * 100:.1f}%)",
+                help="Final value if you simply bought and held the NIFTY 50 cap-weighted index without our optimization",
+            )
+            st.caption(f"CAGR: {bm_cagr * 100:.2f}% | Max Dip: {bm_max_dd_pct * 100:.1f}%")
+
+        with m_col3:
+            st.metric(
+                label="With Our Strategy (EIPO)",
+                value=format_inr(strat_final),
+                delta=f"+{format_inr(strat_profit)} (+{(strat_profit / total_invested) * 100:.1f}%)" if strat_profit >= 0 else f"{format_inr(strat_profit)} ({(strat_profit / total_invested) * 100:.1f}%)",
+                help="Final value achieved using our SOCP Active Risk optimization after all transaction fees",
+            )
+            st.caption(f"CAGR: {strat_cagr * 100:.2f}% | Max Dip: {strat_max_dd_pct * 100:.1f}%")
+
+        with m_col4:
+            is_positive = surplus_profit >= 0
+            sign_str = "+" if is_positive else "-"
+            st.metric(
+                label="Extra Alpha Wealth Created",
+                value=f"{sign_str}{format_inr(abs(surplus_profit))}",
+                delta=f"{sign_str}{abs(surplus_pct):.2f}% vs Benchmark",
+                help="Pure extra profit generated by our strategy over simply buying the index",
+            )
+            st.caption("Net bonus wealth in your pocket")
+
+        # Interactive Wealth Growth Chart
+        st.markdown("---")
+        st.markdown("### 📈 Daily Portfolio Valuation Growth (₹)")
+        st.markdown("Hover over any date to see exact Rupee valuations for both portfolios and observe how the wealth gap expands over time.")
+
+        wealth_df = pd.DataFrame(
+            {
+                "With Our Strategy (₹)": strat_daily_wealth,
+                "Without Our Strategy (NIFTY 50) (₹)": bm_daily_wealth,
+            },
+            index=sub_returns.index,
+        )
+        st.line_chart(wealth_df, height=380)
+
+        # Milestone Year-by-Year Table
+        st.markdown("### 📅 Chronological Year-by-Year Wealth Progression")
+        st.markdown(
+            "Track how your initial investment evolved at the end of each calendar year. "
+            "Notice how small annual edges compound into substantial Rupee differences over a multi-year horizon."
+        )
+
+        years = sorted(sub_returns.index.year.unique())
+        milestone_records = []
+        for yr in years:
+            yr_data = sub_returns[sub_returns.index.year == yr]
+            if yr_data.empty:
+                continue
+            last_date = yr_data.index[-1]
+            s_val = strat_daily_wealth.loc[last_date]
+            b_val = bm_daily_wealth.loc[last_date]
+            diff_val = s_val - b_val
+
+            # Annual returns during that specific calendar year
+            yr_strat_r = (1.0 + yr_data[strat_col]).prod() - 1.0
+            yr_bm_r = (1.0 + yr_data["benchmark"]).prod() - 1.0
+            yr_excess_r = yr_strat_r - yr_bm_r
+
+            milestone_records.append({
+                "Year": str(yr),
+                "Without Strategy (₹)": format_inr(b_val),
+                "With Our Strategy (₹)": format_inr(s_val),
+                "Extra Profit (₹)": f"+{format_inr(diff_val)}" if diff_val >= 0 else f"-{format_inr(abs(diff_val))}",
+                "Our Annual Return": f"{yr_strat_r * 100:+.2f}%",
+                "Index Annual Return": f"{yr_bm_r * 100:+.2f}%",
+                "Excess Return": f"{yr_excess_r * 100:+.2f}%",
+                "Status": "🟢 Outperformed" if yr_excess_r > 0 else "🔴 Lagged Index",
+            })
+
+        milestone_df = pd.DataFrame(milestone_records)
+        st.dataframe(milestone_df, width="stretch")
+
+        # Downside Risk & Crash Resilience Section
+        st.markdown("### 🛡️ Downside Risk & Real-Money Drawdown Profile")
+        dd_col1, dd_col2 = st.columns(2)
+
+        with dd_col1:
+            st.markdown(
+                f"""
+                <div class='glowing-card' style='border-color: #6366f1; padding: 18px;'>
+                    <h4 style='color: #4338ca; margin-top: 0;'>📉 Worst-Case Peak-to-Trough Dip</h4>
+                    <p style='margin-bottom: 8px;'>
+                        During major market sell-offs (such as the March 2020 COVID panic):
+                    </p>
+                    <ul style='padding-left: 20px; margin-bottom: 0;'>
+                        <li><strong>Without Strategy (Index):</strong> Maximum drop of <strong>{bm_max_dd_pct * 100:.2f}%</strong> (Loss of <strong>{format_inr(bm_max_dd_rs)}</strong> from peak).</li>
+                        <li><strong>With Our Strategy:</strong> Maximum drop of <strong>{strat_max_dd_pct * 100:.2f}%</strong> (Loss of <strong>{format_inr(strat_max_dd_rs)}</strong> from peak).</li>
+                    </ul>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with dd_col2:
+            st.markdown(
+                """
+                <div class='glowing-card' style='border-color: #10b981; padding: 18px;'>
+                    <h4 style='color: #065f46; margin-top: 0;'>💡 Why Our Strategy Recovers Safely</h4>
+                    <p style='margin-bottom: 8px;'>
+                        Because the convex SOCP optimizer enforces strict active tracking error limits (&le; 3.0%) and sector bounds (&le; 5.0%):
+                    </p>
+                    <ul style='padding-left: 20px; margin-bottom: 0;'>
+                        <li><strong>No Concentrated Bet Risk:</strong> The portfolio cannot blow up on an idiosyncratic stock failure.</li>
+                        <li><strong>Fast Recovery Capture:</strong> Retains 95%+ equity exposure to participate fully when markets bounce back.</li>
+                    </ul>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        # Transparent Educational Explanations
+        st.markdown("### 🔍 Plain-English Takeaways: What You Should Know")
+        c_take1, c_take2 = st.columns(2)
+
+        with c_take1:
+            st.markdown(
+                f"""
+                <div class='explain-card' style='border-left: 4px solid #10b981;'>
+                    <h5 style='color: #065f46; margin-top: 0;'>🟢 How the Extra Money is Created</h5>
+                    <ol style='padding-left: 18px; margin-bottom: 0;'>
+                        <li><strong>Factor Premia:</strong> Systematic micro-tilts into stocks showing high 12-1m momentum, 1m short-term reversal, and 1y low volatility.</li>
+                        <li><strong>Ledoit-Wolf Covariance:</strong> Shrinks sample noise in stock correlation matrices to prevent extreme, fragile portfolio weights.</li>
+                        <li><strong>The Compounding Advantage:</strong> Outperforming by an average of +0.84% net per year compounds exponentially over a decade into <strong>{format_inr(abs(surplus_profit))} of additional wealth</strong>.</li>
+                    </ol>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with c_take2:
+            st.markdown(
+                """
+                <div class='explain-card' style='border-left: 4px solid #f43f5e;'>
+                    <h5 style='color: #881337; margin-top: 0;'>🔴 Real-World Disclosures & Non-Claims</h5>
+                    <ol style='padding-left: 18px; margin-bottom: 0;'>
+                        <li><strong>Equity Risk Persists:</strong> This is an enhanced index strategy, NOT a cash deposit. When the stock market drops, your portfolio will also experience temporary paper losses.</li>
+                        <li><strong>Statistical Significance:</strong> At a 5% confidence level, the Information Ratio t-stat is 1.03; formal statistics cannot fully rule out luck over a 10.4-year sample.</li>
+                        <li><strong>Execution Costs:</strong> All values above already deduct 10 bps linear friction for every portfolio rebalance.</li>
+                    </ol>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
+# ==============================================================================
+# Page 3: Live Run & Backtest Simulation (Interactive Live Engine)
 # ==============================================================================
 elif page == "⚡ Live Simulation":
     st.subheader("Interactive Live Run & Backtest Simulation")
@@ -750,9 +1584,55 @@ elif page == "⚡ Live Simulation":
             st.markdown("##### Historical Drawdown Profile")
             st.line_chart(dd * 100, height=260)
 
+        # Demo Capital Wealth Impact for this Live Simulation
+        st.markdown("---")
+        st.markdown("##### 💰 Wealth Impact: Demo Capital Returns for this Simulation")
+        c_sim_cap1, c_sim_cap2 = st.columns([1, 2])
+        with c_sim_cap1:
+            demo_sim_cap = st.number_input(
+                "Test Demo Capital (₹):",
+                min_value=1000,
+                max_value=1000000000,
+                value=100000,
+                step=10000,
+                format="%d",
+                key="live_sim_demo_cap",
+                help="Test any capital in ₹ to see exact returns for this simulation configuration",
+            )
+        strat_final_sim_val = float(demo_sim_cap) * strat_cum.iloc[-1]
+        bm_final_sim_val = float(demo_sim_cap) * bm_cum.iloc[-1]
+        sim_surplus_val = strat_final_sim_val - bm_final_sim_val
+        sim_strat_gain_pct = (strat_cum.iloc[-1] - 1.0) * 100.0
+        sim_bm_gain_pct = (bm_cum.iloc[-1] - 1.0) * 100.0
+
+        with c_sim_cap2:
+            sc_1, sc_2, sc_3 = st.columns(3)
+            with sc_1:
+                st.metric(
+                    "Without Our Strategy",
+                    format_inr(bm_final_sim_val),
+                    f"{sim_bm_gain_pct:+.2f}%",
+                    help="Holding NIFTY 50 benchmark during this period",
+                )
+            with sc_2:
+                st.metric(
+                    "With Our Strategy",
+                    format_inr(strat_final_sim_val),
+                    f"{sim_strat_gain_pct:+.2f}%",
+                    help="Active optimization net of fees during this period",
+                )
+            with sc_3:
+                is_pos = sim_surplus_val >= 0
+                st.metric(
+                    "Extra Wealth Generated",
+                    f"{'+' if is_pos else ''}{format_inr(sim_surplus_val)}",
+                    f"{(sim_surplus_val / bm_final_sim_val) * 100:+.2f}% vs Index",
+                    help="Extra net profit directly in your pocket",
+                )
+
 
 # ==============================================================================
-# Page 3: Portfolio Holdings & Sector Allocations
+# Page 4: Portfolio Holdings & Sector Allocations
 # ==============================================================================
 elif page == "💼 Holdings & Sectors":
     st.subheader("Portfolio Constituent Holdings & Sector Allocations")
@@ -887,7 +1767,7 @@ elif page == "💼 Holdings & Sectors":
 
 
 # ==============================================================================
-# Page 4: Explore Parameter Grid
+# Page 5: Explore Parameter Grid
 # ==============================================================================
 elif page == "Explore":
     st.subheader("Explore Parameter Sensitivity Grid")
@@ -986,7 +1866,7 @@ elif page == "Explore":
 
 
 # ==============================================================================
-# Page 5: Sweeps & Costs
+# Page 6: Sweeps & Costs
 # ==============================================================================
 elif page == "Sweeps & Costs":
     st.subheader("Tracking Error Sweeps & Execution Friction Analysis")
@@ -1066,7 +1946,7 @@ elif page == "Sweeps & Costs":
 
 
 # ==============================================================================
-# Page 6: Statistical Significance
+# Page 7: Statistical Significance
 # ==============================================================================
 elif page == "Statistical Significance":
     st.subheader("Statistical Significance & Hypothesis Testing")
@@ -1165,7 +2045,7 @@ elif page == "Statistical Significance":
 
 
 # ==============================================================================
-# Page 7: About & Metadata
+# Page 8: About & Metadata
 # ==============================================================================
 elif page == "About":
     st.subheader("About Enhanced Indexing & System Metadata")

@@ -28,12 +28,25 @@ def test_app_navigate_all_pages():
         "Statistical Significance",
         "About",
         "Overview",
+        "💰 Wealth Simulator",
         "⚡ Live Simulation",
         "💼 Holdings & Sectors",
     ]
     for page_name in pages:
         at.radio(key="nav_page").set_value(page_name).run()
         assert not at.exception, f"Exception when navigating to '{page_name}': {at.exception}"
+
+
+def test_app_wealth_simulator():
+    """Verify demo money wealth simulator calculates returns and renders metrics without exception."""
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
+    at.run()
+    at.radio(key="nav_page").set_value("💰 Wealth Simulator").run()
+    assert not at.exception
+    # Ensure all headline financial comparison metrics are rendered
+    assert len(at.metric) >= 4
+    # Check that presets buttons exist
+    assert len(at.button) >= 6
 
 
 def test_app_explore_parameter_selection():
